@@ -1,0 +1,85 @@
+Terraform Installation:
+
+https://www.terraform.io/downloads
+
+Download for windows
+
+extract, and set set environment variable PATH
+
+Open Visual Studio Code
+
+go to extension ---> search for HashiCrop terraform & install
+
+https://registry.terraform.io/browse/providers
+
+choose aws --> Documentations (for AWS Provider examples)
+
+create a folder in vscode
+add new file main.tf
+
+enter the provider statements
+
+set AWS Key:
+
+Go to aws console 
+
+User --> security Credentials --> Choose Access Keys (Access ...) --> Click on Create New Access Key
+
+Access Key ID:
+AKIAUQ37KIMCCA5O7XDU
+Secret Access Key:
+Hxvkdb5uQFstULjlxtuqSnYp3d8cVomBiclmDsHO
+
+Go to AWS Console - collect the region, ami, instance type, access key & secret key, etc... and create terraform config file :
+
+provider "aws" {
+  region     = "ap-south-1"
+  access_key = "AKIAUQ37KIMCCA5O7XDU"
+  secret_key = "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"
+}
+
+# Create AWS Instance
+
+resource "aws_instance" "app_server" {
+  ami           = "ami-08df646e18b182346"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "TerraformDemoServer1"
+  }
+}
+
+open new terminal form vscode
+
+> terraform init 
+
+> terraform plan
+
+> terraform apply 
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+> terraform plan 
+
+aws_instance.app_server: Refreshing state... [id=i-08a60dfe0c0dff763]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
+
+> terraform apply 
+
+aws_instance.app_server: Refreshing state... [id=i-08a60dfe0c0dff763]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+destroy Resources:
+
+> terraform destroy
+
+or comment the code & & give terraform apply
